@@ -1,4 +1,4 @@
-package libp2pquic
+package quic
 
 import (
 	"net"

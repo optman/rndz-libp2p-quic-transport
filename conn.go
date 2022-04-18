@@ -1,4 +1,4 @@
-package libp2pquic
+package quic
 
 import (
 	"context"
@@ -14,7 +14,6 @@ import (
 
 type conn struct {
 	quicConn  quic.Connection
-	pconn     *reuseConn
 	transport *transport
 	scope     network.ConnManagementScope
 
@@ -35,7 +34,6 @@ var _ tpt.CapableConn = &conn{}
 func (c *conn) Close() error {
 	c.transport.removeConn(c.quicConn)
 	err := c.quicConn.CloseWithError(0, "")
-	c.pconn.DecreaseCount()
 	c.scope.Done()
 	return err
 }

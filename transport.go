@@ -18,6 +18,7 @@ import (
 	"github.com/libp2p/go-libp2p-core/pnet"
 	tpt "github.com/libp2p/go-libp2p-core/transport"
 	"github.com/optman/rndz-go/client/udp"
+	ra "github.com/optman/rndz-multiaddr"
 
 	p2ptls "github.com/libp2p/go-libp2p-tls"
 
@@ -46,6 +47,8 @@ var quicConfig = &quic.Config{
 	KeepAlive: true,
 	Versions:  []quic.VersionNumber{quic.VersionDraft29, quic.Version1},
 }
+
+var InvalidListenAddr = errors.New("invalid listen addr")
 
 const statelessResetKeyInfo = "libp2p quic stateless reset key"
 const errorCodeConnectionGating = 0x47415445 // GATE in ASCII
@@ -222,24 +225,19 @@ func (t *transport) Listen(addr ma.Multiaddr) (tpt.Listener, error) {
 
 	log.Debugf("Listen %s", addr)
 
-	localAddr, rndzAddr := ma.SplitFunc(addr, func(c ma.Component) bool {
-		return c.Protocol().Code == ma.P_CIRCUIT
-	})
+	localAddr, rndzAddr := ra.SplitListenAddr(addr)
+	if rndzAddr == nil {
+		return nil, InvalidListenAddr
+	}
 
 	laddr, err := manet.ToNetAddr(localAddr)
 	if err != nil {
-		return nil, errors.New("invalid listen addr")
-	}
-
-	if rndzAddr != nil {
-		_, rndzAddr = ma.SplitFirst(rndzAddr)
-	} else {
-		return nil, errors.New("invalid listen addr")
+		return nil, InvalidListenAddr
 	}
 
 	raddr, err := manet.ToNetAddr(rndzAddr)
 	if err != nil {
-		return nil, errors.New("invalid listen addr")
+		return nil, InvalidListenAddr
 	}
 
 	rndz := udp.New(raddr.String(), t.localPeer.String(), netip.MustParseAddrPort(laddr.String()))

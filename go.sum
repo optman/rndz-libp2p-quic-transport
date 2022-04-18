@@ -177,6 +177,8 @@ github.com/onsi/gomega v1.13.0/go.mod h1:lRk9szgn8TxENtWd0Tp4c3wjlRfMTMH27I+3Je4
 github.com/openzipkin/zipkin-go v0.1.1/go.mod h1:NtoC/o8u3JlF1lSlyPNswIbeQH9bJTmOf0Erfk+hxe8=
 github.com/optman/rndz-go v0.0.0-20220418084458-71bda13b0bfe h1:XooDJT5biIXIeDQqPJbvgQkqSjoTeQJVrBPu6jTrzdw=
 github.com/optman/rndz-go v0.0.0-20220418084458-71bda13b0bfe/go.mod h1:VQTvsXp4TNMMusgs5yLumeDSVLzxON3GgIbl0+S0uY4=
+github.com/optman/rndz-multiaddr v0.0.0-20220418134042-6ac70a638693 h1:eTIk0Q+As+Tlvse3IoHFJmpiGMi1ILv68xfdwoCUAN4=
+github.com/optman/rndz-multiaddr v0.0.0-20220418134042-6ac70a638693/go.mod h1:C+AaUTa0SbKVA5XbTxG33xERz7m+5z9WPma6igYnDpE=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
